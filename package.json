@@ -1,0 +1,36 @@
+{
+  "name": "forecastqro",
+  "version": "1.0.0",
+  "description": "Este es un proyecto para la clase de sistemas de soporte a la desicion 2018-B UAQ Facultad de Informatica",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eigan97/dssProyectoFinal.git"
+  },
+  "keywords": [
+    "Nodejs",
+    "DSS",
+    "UAQ",
+    "Informatica"
+  ],
+  "author": [
+    "Edgar Zuñiga Aguilar",
+    "Esau Cedillo Zamora",
+    "Diego Pastor",
+    "Ludwing Martinez"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eigan97/dssProyectoFinal/issues"
+  },
+  "homepage": "https://github.com/eigan97/dssProyectoFinal#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0"
+  }
+}
