@@ -89,7 +89,7 @@ module.exports = function (app) {
 				        let PMD_PMDA = forecastLibrary.dataPMD(PMS_PMDA,kj,j,hj)
 
 				        let PMDA = forecastLibrary.dataPMDA(PMS_PMDA,PMD_PMDA,hkjj,m)
-				        res.status(200).json(PMDA);
+				        data_serie=PMDA;
 
 					}
 			        let SE = forecastLibrary.SE(data_serie,data,f,pronostico,j,kj)
@@ -180,7 +180,18 @@ module.exports = function (app) {
 
 					}
 					if (pronostico == "PMDA") { 
+						console.log('PMDA')
+				        hkj=kj;
+				        hj=j;
+				        hkjj=parseInt(j)+parseInt(kj);
+				        
+				        m = req.query.m;
+				        
+				        let PMS_PMDA = forecastLibrary.dataPMS(data,kj,hkj)
+				        let PMD_PMDA = forecastLibrary.dataPMD(PMS_PMDA,kj,j,hj)
 
+				        let PMDA = forecastLibrary.dataPMDA(PMS_PMDA,PMD_PMDA,hkjj,m)
+				        data_serie=PMDA;
 					}
 			        let SE = forecastLibrary.SE(data_serie,data,f,pronostico,j,kj)
 			        res.status(200).json(SE);
