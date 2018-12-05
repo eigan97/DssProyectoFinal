@@ -6,6 +6,8 @@ module.exports = function (app) {
 		data.getData((err,data)=>{
 			kj = req.query.k;
 			j = req.query.j;
+			pronostico = req.query.pronosticose
+			f = req.query.f
 			
 			switch(req.query.pronostico) {
 			    case 'PMS':
@@ -36,25 +38,48 @@ module.exports = function (app) {
 			        // let PMDA = forecastLibrary.dataPMDA(PMS_PMDA,PMD_PMDA,hkjj,m)
 			        //res.status(200).json(PMDA);
 			        break;
+			    //revisar que datos le vamos a enviar ps,pms,frecuencia,pmd, pmda
 			    case 'TMAC':
 			        console.log('TMAC')
 			        hkj=kj;
-
-			        let PMS_TMAC = forecastLibrary.dataPMS(data,kj,hkj)
-			        let TMAC = forecastLibrary.TMAC(PMS_TMAC)
-
+			        let TMAC = forecastLibrary.TMAC(data)
 			        res.status(200).json(TMAC);
 			        break;
 			    case 'PTMAC':
 			        console.log('PTMAC')
-			        let PMS_TMAC = forecastLibrary.dataPMS(data,kj,hkj)
-			        let TMAC_PTMAC = forecastLibrary.TMAC(PMS_TMAC)
+			        let TMAC_PTMAC = forecastLibrary.TMAC(data)
 			        let PTMAC = forecastLibrary.PTMAC(data,TMAC_PTMAC)
 			        res.status(200).json(PTMAC);
 			        break;
+
 			    case 'SE':
 			        console.log('SE');
-			        
+			        data_serie=[];
+			        if (pronostico == "PTMAC") { 
+			        	let TMAC_PTMAC_SE = forecastLibrary.TMAC(data)
+			        	let PTMAC_SE = forecastLibrary.PTMAC(data,TMAC_PTMAC_SE)
+			        	data_serie = PTMAC_SE; 
+			        }
+					if (pronostico == "PS") { 
+
+					}
+					if (pronostico == "PMS") { 
+						h=kj;
+						let arrayPMS_SE = forecastLibrary.dataPMS(data,kj,h)
+						data_serie = arrayPMS_SE;
+					}
+					if (pronostico == "PMD") { 
+						hj=j;
+			        	hkj=kj;
+			        	let PMS_PMD_SE = forecastLibrary.dataPMS(data,kj,hkj)
+			        	let PMD_SE = forecastLibrary.dataPMD(PMS_PMD_SE,kj,j,hj)
+			        	data_serie=PMD_SE;
+
+					}
+					if (pronostico == "PMDA") { 
+
+					}
+			        let SE = forecastLibrary.SE(data_serie,data,f,pronostico,j,kj)
 			        res.status(200).json(SE);
 			        break;
 			    default:

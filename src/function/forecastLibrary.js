@@ -5,12 +5,13 @@ dataforecast.dataPMS = function (data,kj,h){
     	while(h<=data.length){
     		band = 0
     		for (var j = 1; j  <= kj ; j++) {
-    			band += data[h-j].frecuencia;
+    			band += data[h-j].Goals;
     		}
     		h++;
         	return band/kj;
     	}
     })
+
     i=1;
 	while(i<kj){
 		popped = arrayFrecuenciaPMS.pop();
@@ -55,10 +56,19 @@ dataforecast.dataPMD = function (data,k,j,h){
 // 	}
 //     return arrayFrecuenciaPMDA;
 // }
+
+
 dataforecast.TMAC = function (data){
 	tmac = [];
+	console.log(data);
   	for(var i = 1; i <= data.length-1; i++){
-  		tmac[i-1] = ((data[i].frecuencia/data[i-1].frecuencia)-1)*100;
+
+  		if(data[i-1].Goals	!=0){
+  			tmac[i-1] = ((data[i].Goals / data[i-1].Goals) - 1) * 100;
+  			console.log(tmac[i-1])
+  		}else{
+  			tmac[i-1]=0;
+  		}
   	}
   	return tmac;
 }
@@ -67,9 +77,23 @@ dataforecast.TMAC = function (data){
 dataforecast.PTMAC = function (data,tmac){
   	ptmac = [];
   	for(var i = 2; i <= data.length-1; i++){
-  		ptmac[i-2] = data[i].frecuencia + (data[i].frecuencia*(tmac[0]/100)) ;
+  		ptmac[i-2] = data[i].Goals + (data[i].Goals*(tmac[0]/100)) ;
   	}
   	return ptmac;
+}
+
+dataforecast.SE = function (data_s,data,f,pronostico,j,k){
+	inicio=0;
+	if (pronostico == "PTMAC") { inicio = 3; }
+  	if (pronostico == "PS") { inicio = 2; }
+  	if (pronostico == "PMS") { inicio = parseInt(k) + 1; }
+  	if (pronostico == "PMD") { inicio = parseInt(j) + parseInt(k) + 1; }
+  	if (pronostico == "PMDA") { inicio = parseInt(j) + parseInt(k) + 1; }
+  	se = [];
+	for (var i = inicio ; i <= data_s.length; i++) {
+		se[i]= data_s[i-1]+(parseFloat(f)*(((data[i-1].Goals)-data_s[i-1])))
+	}
+  	return se;
 }
 
 
