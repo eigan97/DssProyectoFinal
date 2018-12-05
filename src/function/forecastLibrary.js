@@ -39,23 +39,25 @@ dataforecast.dataPMD = function (data,k,j,h){
     return arrayFrecuenciaPMD;
 }
 
-// dataforecast.dataPMDA = function (pms,pmd,h,m){
-// 	if(!m){
-// 		m=1;
-// 	}
-// 	let arrayFrecuenciaPMDA=[];
-// 	while(h <= pmd.length){
-// 		a= (2 * pms[h]) - pmd[h];
-// 		console.log(h);
-// 		console.log(pmd);
-// 		console.log(pms);
-// 		b= (2 *  Math.abs(parseInt(pms[h]) - parseInt(pmd[h])))/(parseInt(pmd.length)-1);
-// 		band = parseInt(a) + (parseInt(b) * parseInt(m));
-// 		h++;
-//     	arrayFrecuenciaPMDA.push(band);
-// 	}
-//     return arrayFrecuenciaPMDA;
-// }
+dataforecast.dataPMDA = function (pms,pmd,h,m){
+	if(!m){
+		m=1;
+	}
+	let arrayFrecuenciaPMDA=[];
+	console.log(h);
+	console.log(pmd.length);
+	while(h <= pmd.length){
+		a= (2 * pms[h]) - pmd[h];
+		console.log(h);
+		console.log(pmd);
+		console.log(pms);
+		b= (2 *  Math.abs(parseInt(pms[h]) - parseInt(pmd[h])))/(parseInt(pmd.length)-1);
+		band = parseInt(a) + (parseInt(b) * parseInt(m));
+		h++;
+    	arrayFrecuenciaPMDA.push(band);
+	}
+    return arrayFrecuenciaPMDA;
+}
 
 
 dataforecast.TMAC = function (data){
@@ -96,6 +98,16 @@ dataforecast.SE = function (data_s,data,f,pronostico,j,k){
   	return se;
 }
 
+dataforecast.PS = function (data){	
+	band = 0;
+	let arrayFrecuenciaPS = data.map((a,index)=>{
+		band += a.Goals;
+		console.log(a)
+		return band/index;
+	})
+
+	return arrayFrecuenciaPS;
+}
 
 
 module.exports=dataforecast;

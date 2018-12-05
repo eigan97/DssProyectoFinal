@@ -8,12 +8,26 @@ connection = mysql.createConnection({
 	database: 'forecastqro'
 })
 
-let dataModel = {};
+let dataModel= {};
 
-dataModel.getData = (data)=>{
+dataModel.getDataQueretaro = (data)=>{
 	if(connection){
 		connection.query(
 			'SELECT * FROM data',
+			(err, rows)=>{
+				if(err){
+					throw err
+				}else{
+					data(null, rows)
+				}
+			})
+	}
+};
+
+dataModel.getDataAmerica = (data)=>{
+	if(connection){
+		connection.query(
+			'SELECT * FROM data2',
 			(err, rows)=>{
 				if(err){
 					throw err
