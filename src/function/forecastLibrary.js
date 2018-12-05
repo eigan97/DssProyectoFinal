@@ -77,9 +77,10 @@ dataforecast.TMAC = function (data){
 
 
 dataforecast.PTMAC = function (data,tmac){
+
   	ptmac = [];
-  	for(var i = 2; i <= data.length-1; i++){
-  		ptmac[i-2] = data[i].Goals + (data[i].Goals*(tmac[0]/100)) ;
+  	for(var i = 2; i <= data.length; i++){
+  		ptmac[i-2] = data[i-1].Goals + (data[i-1].Goals*(tmac[i-2]/100)) ;
   	}
   	return ptmac;
 }
@@ -95,16 +96,26 @@ dataforecast.SE = function (data_s,data,f,pronostico,j,k){
 	for (var i = inicio ; i <= data_s.length; i++) {
 		se[i]= data_s[i-1]+(parseFloat(f)*(((data[i-1].Goals)-data_s[i-1])))
 	}
-  	return se;
+  var filtered = se.filter(function (e) {
+    return e != null;
+  });
+
+  	return filtered;
 }
 
 dataforecast.PS = function (data){	
 	band = 0;
-	let arrayFrecuenciaPS = data.map((a,index)=>{
-		band += a.Goals;
-		console.log(a)
-		return band/index;
-	})
+  let arrayFrecuenciaPS=[]
+  for (var i = 0; i <= data.length-1; i++) {
+    band+=data[i].Goals
+    arrayFrecuenciaPS[i]= band/(parseInt(i)+1);
+  }
+
+	// let arrayFrecuenciaPS = data.map((a,index)=>{
+	// 	band += a.Goals;
+	// 	console.log(a.Goals + "-" + band/index)
+	// 	return band/index;
+	// })
 
 	return arrayFrecuenciaPS;
 }

@@ -10,6 +10,9 @@ module.exports = function (app) {
 			f = req.query.f
 			
 			switch(req.query.pronostico) {
+				case 'DATA':
+					res.status(200).json(data);
+				break;
 			    case 'PMS':
 			        console.log('PMS')
 			        h=kj;
@@ -41,7 +44,6 @@ module.exports = function (app) {
 			    //revisar que datos le vamos a enviar ps,pms,frecuencia,pmd, pmda
 			    case 'TMAC':
 			        console.log('TMAC')
-			        hkj=kj;
 			        let TMAC = forecastLibrary.TMAC(data)
 			        res.status(200).json(TMAC);
 			        break;
@@ -112,6 +114,9 @@ module.exports = function (app) {
 			f = req.query.f
 			
 			switch(req.query.pronostico) {
+				case 'DATA':
+					res.status(200).json(data);
+				break;
 			    case 'PMS':
 			        console.log('PMS')
 			        h=kj;
@@ -143,7 +148,6 @@ module.exports = function (app) {
 
 			    case 'TMAC':
 			        console.log('TMAC')
-			        hkj=kj;
 			        let TMAC = forecastLibrary.TMAC(data)
 			        res.status(200).json(TMAC);
 			        break;
